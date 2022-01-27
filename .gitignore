@@ -26,4 +26,3 @@ hs_err_pid*
 /target/
 /.idea/
 /uuboycommon.iml
-src/main/java/uuboy/scy/Test.java
