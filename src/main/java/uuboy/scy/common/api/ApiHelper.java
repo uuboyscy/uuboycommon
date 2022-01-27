@@ -40,7 +40,7 @@ public class ApiHelper {
 
                 while(stringIterator.hasNext()) {
                     String header = (String) stringIterator.next();
-                    httpget.addHeader(header, (String)headers.get(header));
+                    httpget.addHeader(header, (String) headers.get(header));
                 }
             }
 
@@ -58,6 +58,41 @@ public class ApiHelper {
         }
 
         return results;
+    }
+
+    public static Object getObj(String endpoint, String path, Map<String, String> paramters, ApiTransformation apiTrans, Map<String, String> headers) throws Exception {
+        CloseableHttpClient httpclient = null;
+        CloseableHttpResponse response = null;
+        Object result = null;
+
+        try {
+            httpclient = HttpClients.createDefault();
+            String url = paramters != null ? String.format("%s/%s?%s", endpoint, path, combineParameters(paramters)) : String.format("%s/%s", endpoint, path);
+            HttpGet httpget = new HttpGet(url);
+            if (headers != null) {
+                Iterator stringIterator = headers.keySet().iterator();
+
+                while(stringIterator.hasNext()) {
+                    String header = (String) stringIterator.next();
+                    httpget.addHeader(header, (String) headers.get(header));
+                }
+            }
+
+            response = httpclient.execute(httpget);
+            System.out.println(response.getStatusLine().getStatusCode());
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                result = apiTrans.transToObj(entity);
+                System.out.println("Response content: " + result);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            httpclient.close();
+            response.close();
+        }
+
+        return result;
     }
 
     public static String combineParameters(Map<String, String> paramters) {
