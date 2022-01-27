@@ -19,6 +19,11 @@ public class ConfigLoader {
     public ConfigLoader() {
     }
 
+    /**
+     *
+     * @param config
+     * @return
+     */
     public static Object loadConfig(String config) {
         InputStream input = ConfigLoader.class.getClassLoader().getResourceAsStream(config);
         Yaml yaml = new Yaml();

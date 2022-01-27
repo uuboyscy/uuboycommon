@@ -78,6 +78,16 @@ public class ApiHelper {
         return results;
     }
 
+    /**
+     *
+     * @param endpoint
+     * @param path
+     * @param paramters
+     * @param apiTrans
+     * @param headers
+     * @return
+     * @throws Exception
+     */
     public static Object getObj(String endpoint, String path, Map<String, String> paramters, ApiTransformation apiTrans, Map<String, String> headers) throws Exception {
         CloseableHttpClient httpclient = null;
         CloseableHttpResponse response = null;
@@ -113,6 +123,15 @@ public class ApiHelper {
         return result;
     }
 
+    /**
+     *
+     * @param endpoint
+     * @param path
+     * @param parameters
+     * @param headers
+     * @return
+     * @throws IOException
+     */
     public static Integer post(String endpoint, String path, Map<String, String> parameters, Map<String, String> headers) throws IOException {
         CloseableHttpClient httpclient = null;
         CloseableHttpResponse response = null;
@@ -153,6 +172,15 @@ public class ApiHelper {
         }
     }
 
+    /**
+     *
+     * @param endpoint
+     * @param path
+     * @param updateObj
+     * @param headers
+     * @return
+     * @throws Exception
+     */
     public static Integer put(String endpoint, String path, Object updateObj, Map<String, String> headers) throws Exception {
         CloseableHttpClient httpclient = null;
         CloseableHttpResponse response = null;
@@ -189,6 +217,11 @@ public class ApiHelper {
         return statusCode;
     }
 
+    /**
+     *
+     * @param paramters
+     * @return
+     */
     public static String combineParameters(Map<String, String> paramters) {
         String[] keys = (String[]) paramters.keySet().toArray(new String[paramters.size()]);
         String[] parameterStrs = new String[keys.length];
