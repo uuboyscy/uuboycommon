@@ -12,11 +12,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.util.*;
 
 /**
  * Project: uuboycommon
@@ -233,6 +232,63 @@ public class ApiHelper {
         }
 
         return String.join("&", parameterStrs);
+    }
+
+    public static void main(String[] args) {
+
+        String endpoint = "https://httpbin.org/";
+        String pathGet = "get";
+        String pathPost = "post";
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("testHeader", "testvalue");
+
+        Map<String, String> postData = new HashMap<>();
+        postData.put("testKey1", "value1");
+        postData.put("testKey2", "value2");
+
+        try {
+            ApiHelper.getObj(
+                    endpoint,
+                    pathGet,
+                    null,
+                    new ApiTransformation(){
+                        @Override
+                        public List<Object> trans(HttpEntity httpEntity) {
+                            return null;
+                        }
+
+                        @Override
+                        public Object transToObj(HttpEntity httpEntity) {
+                            String line;
+                            StringBuilder sb = new StringBuilder();
+                            try {
+                                BufferedReader in = new BufferedReader(new InputStreamReader(httpEntity.getContent()));
+                                while ((line = in.readLine()) != null) sb.append(line);
+                                System.out.println(sb);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    },
+                    headers
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ApiHelper.post(
+                    endpoint,
+                    pathPost,
+                    postData,
+                    headers
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
