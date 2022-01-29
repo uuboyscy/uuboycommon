@@ -13,7 +13,7 @@ import java.util.List;
  * Version: 0.0.1
  */
 
-public interface ApiTransformation {
-    List<Object> trans(HttpEntity httpEntity);
-    Object transToObj(HttpEntity httpEntity);
+public interface ApiTransformation<T> {
+    List<T> trans(HttpEntity httpEntity);
+    T transToObj(HttpEntity httpEntity);
 }
