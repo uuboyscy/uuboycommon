@@ -34,13 +34,13 @@ public class ApiHelper {
     }
 
     /**
-     *
-     * @param endpoint
-     * @param path
-     * @param paramters
-     * @param apiTrans
-     * @param headers
-     * @return
+     * GET request an API with List Object returned.
+     * @param endpoint https://httpbin.org
+     * @param path /api/something
+     * @param paramters Parameters followed behind "?" symbol. Put the keys and values with HashMap
+     * @param apiTrans Object format for specific response Json
+     * @param headers Headers put with HashMap
+     * @return List of object which can be determined by implementing Transformation interface
      * @throws Exception
      */
     public static List<Object> get(String endpoint, String path, Map<String, String> paramters, ApiTransformation apiTrans, Map<String, String> headers) throws Exception {
