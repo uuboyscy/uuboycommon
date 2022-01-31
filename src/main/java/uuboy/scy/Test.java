@@ -23,15 +23,6 @@ public class Test {
         Map<String, Map<String, String>> baseConfig = (Map<String, Map<String, String>>) ConfigLoader.loadConfig(filename);
         System.out.println(baseConfig.get("test1").get("a"));
         System.out.println(baseConfig.get("test2").get("cc"));
-        try {
-            ApiHelper.getObj("https://google.com",null, null, null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            DateUtils.main(null);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        ApiHelper.main(null);
     }
 }
