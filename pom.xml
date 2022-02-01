@@ -78,6 +78,21 @@
             <artifactId>hadoop-common</artifactId>
             <version>2.6.0</version>
         </dependency>
+
+        <!-- SFTP client -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
+
+        <!-- SFTP client -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
     <build>
