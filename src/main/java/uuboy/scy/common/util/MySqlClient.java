@@ -27,44 +27,34 @@ public class MySqlClient {
         this.dbName = dbName;
         this.user = user;
         this.password = password;
-        this.uri = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?characterEncoding=utf8";
+        this.uri = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?characterEncoding=utf8&useSSL=false";
+//        this.uri = "jdbc:mysql://" + host + ":" + port + "/" + dbName +
+//                "?useSSL=false" +
+//                "&useUnicode=true" +
+//                "&characterEncoding=UTF-8" +
+//                "&zeroDateTimeBehavior=convertToNull" +
+//                "&serverTimezone=GMT";
     }
 
-    public void connectDB() throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
+    public void connectDB() throws ClassNotFoundException, SQLException {
+//        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         mysqlConnect = DriverManager.getConnection(this.uri, this.user, this.password);
     }
 
-    public void closeDB() throws Exception {
+    public void closeDB() throws SQLException {
         if (mysqlConnect != null) {
             mysqlConnect.close();
         }
 
     }
 
-    public void updateDB(String sql) {
-        Statement mysqlStatement = null;
-        try {
-            mysqlStatement = mysqlConnect.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
+    public void updateDB(String sql) throws SQLException {
+            Statement mysqlStatement = mysqlConnect.createStatement();
             mysqlStatement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (mysqlStatement != null) {
-            try {
-                mysqlStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
-    public ResultSet queryDB(String sql) throws Exception {
+    public ResultSet queryDB(String sql) throws SQLException {
         ResultSet rs = null;
         Statement mysqlStatement = mysqlConnect.createStatement();
         rs = mysqlStatement.executeQuery(sql);
@@ -77,6 +67,7 @@ public class MySqlClient {
         String dbName = "TESTDB";
         String user = "root";
         String password = "root";
+        String sql = "SELECT * FROM Staff";
 
         MySqlClient mySqlClient = new MySqlClient(
                 host,
@@ -86,6 +77,14 @@ public class MySqlClient {
                 password
         );
 
+        try {
+            mySqlClient.connectDB();
+            System.out.println(mySqlClient.queryDB(sql).getString(1));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
