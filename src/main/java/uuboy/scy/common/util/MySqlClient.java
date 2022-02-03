@@ -1,6 +1,11 @@
 package uuboy.scy.common.util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Project: uuboycommon
@@ -61,13 +66,23 @@ public class MySqlClient {
         return rs;
     }
 
+    public List<String> getColumns(String dbName, String tableName) {
+        return null;
+    }
+
+    public List<String> getColumns(String tableName) {
+        return null;
+    }
+
     public static void main(String[] args) {
-        String host = "127.0.0.1";
+        String host = "localhost";
         String port = "3306";
-        String dbName = "TESTDB";
+        String dbName = "testdb";
+        dbName = "TESTDB";
         String user = "root";
         String password = "root";
-        String sql = "SELECT * FROM Staff";
+        String sql = "SELECT * FROM testdb.membersInfo";
+        sql = "SELECT * FROM TESTDB.Staff;";
 
         MySqlClient mySqlClient = new MySqlClient(
                 host,
@@ -79,7 +94,10 @@ public class MySqlClient {
 
         try {
             mySqlClient.connectDB();
-            System.out.println(mySqlClient.queryDB(sql).getString(1));
+            ResultSet rs = mySqlClient.queryDB(sql);
+            System.out.println(rs.next());
+            System.out.println(rs.getString("ID"));
+            System.out.println(rs.getString("Name"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
