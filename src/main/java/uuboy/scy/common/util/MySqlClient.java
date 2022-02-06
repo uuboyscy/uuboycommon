@@ -18,8 +18,6 @@ import java.util.List;
  */
 
 public class MySqlClient {
-    private String host;
-    private String port;
     private String dbName;
     private String user;
     private String password;
@@ -27,8 +25,6 @@ public class MySqlClient {
     public static Connection mysqlConnect;
 
     public MySqlClient(String host, String port, String dbName, String user, String password) {
-        this.host = host;
-        this.port = port;
         this.dbName = dbName;
         this.user = user;
         this.password = password;
@@ -71,12 +67,14 @@ public class MySqlClient {
     }
 
     public List<String> getColumns(String tableName) {
+        String sql = "DESCRIBE " + this.dbName + "." + tableName;
         return null;
     }
 
     public static void main(String[] args) {
-        String host = "localhost";
-        String port = "3306";
+        String host = "127.0.0.1";
+        String port = "33060";
+        port = "3306";
         String dbName = "testdb";
         dbName = "TESTDB";
         String user = "root";
@@ -96,8 +94,8 @@ public class MySqlClient {
             mySqlClient.connectDB();
             ResultSet rs = mySqlClient.queryDB(sql);
             System.out.println(rs.next());
-            System.out.println(rs.getString("ID"));
-            System.out.println(rs.getString("Name"));
+            System.out.println(rs.getString(1));
+            System.out.println(rs.getString(2));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
