@@ -63,7 +63,7 @@ public class ApiHelper {
 
             response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
-            System.out.println(response.getStatusLine().getStatusCode());
+//            System.out.println(response.getStatusLine().getStatusCode());
             if (entity != null) {
                 results = apiTrans.trans(entity);
             }
@@ -106,11 +106,11 @@ public class ApiHelper {
             }
 
             response = httpclient.execute(httpget);
-            System.out.println(response.getStatusLine().getStatusCode());
+//            System.out.println(response.getStatusLine().getStatusCode());
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 result = apiTrans.transToObj(entity);
-                System.out.println("Response content: " + result);
+//                System.out.println("Response content: " + result);
             }
         } catch (Exception e) {
             throw e;
@@ -161,7 +161,7 @@ public class ApiHelper {
 
             response = httpclient.execute(httpPost);
             statusCode = response.getStatusLine().getStatusCode();
-            System.out.println(statusCode);
+//            System.out.println(statusCode);
             return statusCode;
         } catch (Exception e) {
             throw e;
