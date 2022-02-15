@@ -45,20 +45,6 @@ public class DateUtils {
         return String.format("%02d%02d%02d", calendar.get(1) - 2000, calendar.get(2) + 1, calendar.get(5));
     }
 
-    public static String getSiteDate() {
-        Calendar calendar = Calendar.getInstance();
-        return String.format("%04d-%02d-%02d", calendar.get(1), calendar.get(2) + 1, calendar.get(5));
-    }
-
-    public static String getSiteSomeDay(String day) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        Date date = simpleDateFormat.parse(day);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(5, calendar.get(5));
-        return String.format("%04d-%02d-%02d", calendar.get(1), calendar.get(2) + 1, calendar.get(5));
-    }
-
     public static String getMonth() {
         Calendar calendar = Calendar.getInstance();
         return String.format("%02d%02d", calendar.get(1) - 2000, calendar.get(2) + 1);
