@@ -21,10 +21,15 @@ public class DateUtils {
     public DateUtils() {
     }
 
-    public static String today() {
+    public static String today(String format) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(5, calendar.get(5));
-        return String.format("%02d%02d%02d", calendar.get(1) - 2000, calendar.get(2) + 1, calendar.get(5));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        simpleDateFormat.format(calendar.getTime());
+        return simpleDateFormat.format(calendar.getTime());
+    }
+
+    public static String today() {
+        return today("yyyyMMdd");
     }
 
     public static String someDay(String day, int nDay) throws ParseException {
@@ -32,6 +37,7 @@ public class DateUtils {
         Date date = simpleDateFormat.parse(day);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+
         calendar.set(5, calendar.get(5) - nDay);
         return String.format("%02d%02d%02d", calendar.get(1) - 2000, calendar.get(2) + 1, calendar.get(5));
     }
@@ -141,6 +147,37 @@ public class DateUtils {
     }
 
     public static void main(String[] args) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(String.format("YEAR: %d", calendar.get(Calendar.YEAR))); // 1
+        System.out.println(String.format("MONTH: %d", calendar.get(Calendar.MONTH))); // 2
+        System.out.println(String.format("WEEK_OF_YEAR: %d", calendar.get(Calendar.WEEK_OF_YEAR))); // 3
+        System.out.println(String.format("WEEK_OF_MONTH: %d", calendar.get(Calendar.WEEK_OF_MONTH))); // 4
+        System.out.println(String.format("DATE: %d", calendar.get(Calendar.DATE))); // 5
+        System.out.println(String.format("DAY_OF_MONTH: %d", calendar.get(Calendar.DAY_OF_MONTH))); // 5
+        System.out.println(String.format("DAY_OF_YEAR: %d", calendar.get(Calendar.DAY_OF_YEAR))); // 6
+        System.out.println(String.format("DAY_OF_WEEK: %d", calendar.get(Calendar.DAY_OF_WEEK))); // 7
+        System.out.println(String.format("DAY_OF_WEEK_IN_MONTH: %d", calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH))); // 8
+        System.out.println(String.format("AM_PM: %d", calendar.get(Calendar.AM_PM))); // 9
+        System.out.println(String.format("HOUR: %d", calendar.get(Calendar.HOUR))); // 10
+        System.out.println(String.format("HOUR_OF_DAY: %d", calendar.get(Calendar.HOUR_OF_DAY))); // 11
+        System.out.println(String.format("MINUTE: %d", calendar.get(Calendar.MINUTE))); // 12
+        System.out.println(String.format("SECOND: %d", calendar.get(Calendar.SECOND))); // 13
+        System.out.println(String.format("MILLISECOND: %d", calendar.get(Calendar.MILLISECOND))); // 14
+
+        System.out.println("===");
+
+        System.out.println(DateUtils.today());
+        System.out.println(DateUtils.today("yyyy-MM-dd"));
         System.out.println(new Timestamp(longtoDateScale(1555689599L)));
+        System.out.println(new Date().getTime());
+
+        System.out.println("===");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        System.out.println(calendar.getTime().toString());
+        Date date = simpleDateFormat.parse("20220222");
+        System.out.println(simpleDateFormat.format(calendar.getTime()));
+        System.out.println(date.toString());
+
     }
 }
