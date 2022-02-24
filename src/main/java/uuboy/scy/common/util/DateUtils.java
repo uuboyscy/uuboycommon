@@ -1,11 +1,15 @@
 package uuboy.scy.common.util;
 
+import org.apache.avro.generic.GenericData;
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Project: uuboycommon
@@ -30,6 +34,21 @@ public class DateUtils {
 
     public static String today() {
         return today("yyyyMMdd");
+    }
+
+    public static String dateFormatTransformation(String dateStr, String inputFmt, String outputFmt) throws ParseException {
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFmt);
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat(outputFmt);
+        return outputDateFormat.format(
+                inputDateFormat.parse(dateStr)
+        );
+    }
+
+    public static List<String> duration2List(String startDateStr, String endDateStr, String inputFmt, String outputFmt) {
+        List<String> outputList = new ArrayList<>();
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFmt);
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat(outputFmt);
+        return null;
     }
 
     public static String someDay(String day, int nDay) throws ParseException {
